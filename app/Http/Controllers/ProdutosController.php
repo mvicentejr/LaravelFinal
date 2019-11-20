@@ -25,7 +25,7 @@ class ProdutosController extends Controller
      */
     public function create()
     {
-        //
+        return view('produtos.create');
     }
 
     /**
@@ -36,7 +36,15 @@ class ProdutosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'descricao' => 'required',
+            'quantidade' => 'required | numeric',
+            'valor' => 'required | numeric'
+        ]);
+
+        Produto::create($request->all());
+
+        return redirect()->route('produtos.index')->with('success', 'Produto cadastrado com sucesso!');
     }
 
     /**
@@ -45,9 +53,9 @@ class ProdutosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Produto $produto)
     {
-        //
+        return view('produtos.show', compact('produto'));
     }
 
     /**
@@ -56,9 +64,9 @@ class ProdutosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Produto $produto)
     {
-        //
+        return view('produtos.edit', compact('produto'));
     }
 
     /**
@@ -68,9 +76,19 @@ class ProdutosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Produto $produto)
     {
-        //
+        $request->validate([
+            'descricao' => 'required',
+            'quantidade' => 'required | numeric',
+            'valor' => 'required | numeric',
+        ]);
+
+        $produto->update($request->all());
+
+        $descricao = $request->input('descricao');
+
+        return redirect()->route('produtos.index')->with('success', 'Produto '. $descricao .' atualizado com sucesso!');
     }
 
     /**
@@ -79,8 +97,9 @@ class ProdutosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Produto $produto)
     {
-        //
+        $produto->delete();
+        return redirect()->route('produtos.index')->with('success', 'Produto removido com sucesso.');
     }
 }
