@@ -12,7 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('');
 });
 
 Route::resource('produtos', 'produtosController');
+
+Route::resource('clientes', 'ClientesController');
