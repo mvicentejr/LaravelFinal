@@ -7,30 +7,31 @@
             <div class="col-md-5 mx-auto mt-5">
                 <div class="card p-0">
                     <div class="card-header text-center px-0">
-                        <h2><b>NOVO CLIENTE</b></h2>
+                        <h2><b>Editar Cliente</b></h2>
                     </div>
                     <div class="card-body p-0">
                         <div class="form-group bg-secondary p-4 text-white mb-0">
-                            <form action="{{route('clientes.store')}}" method="POST">
+                            <form action="{{route('clientes.update',$clientes->id)}}" method="POST">
                                 @csrf
+                                @method("PATCH")
                                 <div class="form-group">
                                     <label name="nomeCliente">Nome</label>
-                                    <input type="text" name="nome" id="nome" class="form-control" placeholder="Inserir Nome Completo">
+                                    <input type="text" name="nome" id="nome" class="form-control" value="{{$clientes->nome}}">
                                 </div>
 
                                 <div class="form-group">
                                     <label name="cpfCliente">CPF</label>
-                                    <input type="text" name="cpf" id="cpf" class="form-control" placeholder="Inserir CPF">
+                                    <input type="text" name="cpf" id="cpf" class="form-control" value="{{$clientes->cpf}}">
                                 </div>
 
                                 <div class="form-group">
                                     <label name="enderecoCliente">Endereço</label>
-                                    <input type="text" name="endereco" id="endereco" class="form-control" placeholder="Inserir Endereço">
+                                    <input type="text" name="endereco" id="endereco" class="form-control" value="{{$clientes->endereco}}">
                                 </div>
 
                                 <div class="form-group">
                                     <label name="datanascCliente">Data de Nascimento</label>
-                                    <input type="date" name="data" id="data" class="form-control" placeholder="Inserir Data de Nascimento">
+                                    <input type="date" name="data" id="data" class="form-control" value="{{$clientes->datanasc}}">
                                 </div>
 
                                 <div class="form-group">

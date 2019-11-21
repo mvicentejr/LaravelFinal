@@ -11,10 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('');
-});
+Route::get('/menucliente', function () {
+    return view('clientes.menucliente');
+})->name('menucliente');
+
 
 Route::resource('produtos', 'produtosController');
 
 Route::resource('clientes', 'ClientesController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

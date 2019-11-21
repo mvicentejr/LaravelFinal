@@ -14,9 +14,8 @@ class ClientesController extends Controller
      */
     public function index()
     {
-        return view('clientes.index');
-        // $produtos = Produto::orderby('id')->get();
-        // return view('produtos.index', compact('produtos'));
+        $clientes = Cliente::all();
+        return view('clientes.index', compact('clientes'));
     }
 
     /**
@@ -44,7 +43,8 @@ class ClientesController extends Controller
         $cliente->datanasc = $request->input('data');
         $cliente->save();
 
-        return redirect()->route('clientes.index')->with('success', 'Cliente cadastrado com sucesso!');
+        return view('clientes.confirma');
+
     }
 
     /**
@@ -55,7 +55,7 @@ class ClientesController extends Controller
      */
     public function show($id)
     {
-        return view('produtos.show', compact('produto'));
+       // 
     }
 
     /**
@@ -66,7 +66,10 @@ class ClientesController extends Controller
      */
     public function edit($id)
     {
-        return view('produtos.edit', compact('produto'));
+        $clientes = Cliente::find($id);
+        if(isset($clientes)){
+        return view('clientes.edit', compact('clientes'));
+        }
     }
 
     /**
@@ -78,11 +81,15 @@ class ClientesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $produto->update($request->all());
-
-        $descricao = $request->input('descricao');
-
-        return redirect()->route('produtos.index')->with('success', 'Produto '. $descricao .' atualizado com sucesso!');
+        $clientes = Cliente::find($id);
+        if(isset($clientes)){
+            $clientes->nome = $request->input('nome');
+            $clientes->cpf = $request->input('cpf');
+            $clientes->endereco = $request->input('endereco');
+            $clientes->datanasc = $request->input('data');
+            $clientes->save();
+        }
+        return redirect()->route('clientes.index')->with('success', 'Produto excluido com sucesso!');
     }
 
     /**
@@ -92,8 +99,13 @@ class ClientesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        $produto->delete();
-        return redirect()->route('produtos.index')->with('success', 'Produto removido com sucesso.');
+    {   
+        $clientes = Cliente::find($id);
+        if(isset($clientes)){
+            $clientes->delete();
+        }
+        return redirect()->route('clientes.index')->with('success', 'Produto excluido com sucesso!');
+        // $produto->delete();
+        // return redirect()->route('produtos.index')->with('success', 'Produto removido com sucesso.');
     }
 }

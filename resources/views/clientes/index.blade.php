@@ -1,43 +1,49 @@
-    @extends('./layout.app')
-    @section('body')
-    <div class="jumbotron bg-secondary border boder-light">
-        <div class="row">
-            <div class="col-md-12 mx-auto mt-5">
-                
-                    <div class="card-deck">
+@extends('./layout.app')
+@section('body')
 
-                                    <div class="card border border-dark">
-                                        <div class="card-body p-1">
-                                        <div class="card-header text-center px-0">
-                                            <h2><b>CADASTRAR NOVO CLIENTE</b></h2>
-                                        </div>
-                                        <p class="card-text">
-                                        <center>
-                                            <h5>CADASTRE AGORA SEU NOVO CLIENTE</h5>
-                                        </center>
-                                        </P>
-                                        <a href="{{route('clientes.create')}}" class="btn btn-primary btn-lg btn-block">NOVO CLIENTE</a>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="card border border-dark">
-                                        <div class="card-body p-1">
-                                        <div class="card-header text-center px-0">
-                                            <h2><b>MANUTENÇÃO DE CLIENTES</b></h2>
-                                        </div>
-                                        <p class="card-text">
-                                        <center>
-                                            <h5>ALTERAR INFORMAÇÕES OU REMOVER CLIENTES</h5>
-                                        </center>
-                                        </P>
-                                        <a href="/clientes" class="btn btn-primary btn-lg btn-block">MANUTENÇÃO</a>
-                                        </div>
-                                    </div>
+    
+    <div class="card-border">
+        <div class="card-body">
+            <h4 class="card-title"><center>LISTAGEM DE CLIENTE</center></h4>
+            <table class="table table-ordered table-hover">
+                <thead class="thead thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>NOME</th>
+                        <th>CPF</th>
+                        <th>ENDEREÇO</th>
+                        <th>DATA DE NASCIMENTO</th>
+                        <th>AÇÕES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach ($clientes as $cliente)
+                    <tr>
+                        <th>{{$cliente->id}}</th>
+                        <th>{{$cliente->nome}}</th>
+                        <th>{{$cliente->cpf}}</th>
+                        <th>{{$cliente->endereco}}</th>
+                        <th>{{$cliente->datanasc}}</th>
                         
-                    </div>
+                        <th>
+                                <form action="{{route('clientes.destroy', $cliente->id)}}" method="POST">
+                                    <a class="btn btn-success" href="{{ route('clientes.edit', $cliente->id) }}">Editar</a>
+                                    @csrf
+                                    @method("DELETE")
+                                    <button class="btn btn-danger" type="submit">Remover</button>
+                                </form>
+                        </th>
+                        
+                    </tr>
+                    
+                @endforeach
+                <a href="{{route('clientes.create')}}" class="btn btn-primary btn-lg btn-block">NOVO CLIENTE</a>
+                </tbody>
                 
-            </div>
+            </table>
+            <a href="{{route('menucliente')}}" class="btn btn-warning btn-lg btn-block">VOLTAR AO MENU CLIENTE</a>
         </div>
     </div>
+
+
 @endsection
