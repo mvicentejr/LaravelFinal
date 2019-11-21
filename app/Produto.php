@@ -8,8 +8,8 @@ class Produto extends Model
 {
     protected $fillable = ['id', 'descricao', 'quantidade', 'valor', 'itens'];
 
-    /*public function itens()
+    public function itens()
     {
-        return $this->hasMany('App\Item_Venda');
-    }*/
+        return $this->hasMany('App\ItensVenda');
+    }
 }

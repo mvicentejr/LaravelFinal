@@ -16,7 +16,7 @@ class CreateClientesTable extends Migration
         Schema::create('clientes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nome', 35);
-            $table->float('cpf', 11);
+            $table->string('cpf', 11);
             $table->string('endereco', 70);
             $table->date('datanasc');
             $table->timestamps();
