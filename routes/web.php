@@ -15,6 +15,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('produtos', 'produtosController');
-Route::resource('vendas', 'vendasController');
-Route::resource('clientes', 'ClientesController');
+Auth::routes(['verify'=>true]);
+
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+
+Route::resource('produtos', 'produtosController')->middleware('auth');
+Route::resource('vendas', 'vendasController')->middleware('auth');
+Route::resource('clientes', 'ClientesController')->middleware('auth');
+
+Route::get('/menucliente', function () {
+    return view('clientes.menucliente');
+})->name('menucliente')->middleware('auth');
+
